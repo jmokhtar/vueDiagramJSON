@@ -1,0 +1,44 @@
+
+<!-- <link href="diagram.css" rel="stylesheet"> -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+
+<%#= stylesheet_link_tag "diagram.css" %>
+<%#= javascript_include_tag "diagram.js" %>
+
+<%#= javascript_pack_tag 'diagram.js' %>
+
+
+<div id="diagram_container"></div>
+
+<button onclick="myFunction()">Redraw orgchart</button>
+
+<script>
+    // data to load
+    var data = [
+        // shapes
+        { "id": "1", "x": 880, "y": 105, "text": "Text 1", "type": "process"},
+        { "id": "2", "x": 1080, "y": 125, "text": "Text 2", "type": "circle"},
+        { "id": "3",   "x": 1160, "y": 40, "text": "Text 3", "type": "preparation"},
+        { "id": "3.1", "x": 1340, "y": 40, "text": "Text 3.1", "type": "process"},
+        { "id": "3.2", "x": 1520, "y": 40, "text": "Text 3.2", "type": "preparation"},
+
+        // connectors
+        { "from":"1", "to":"2", "type":"dash", "forwardArrow":"filled" },
+        { "from":"2", "to":"3", "type":"dash", "toSide":"bottom", "forwardArrow":"filled"},
+        { "from":"2", "to":"3.2", "type":"dash", "fromSide":"top", "toSide":"top" },
+        { "from":"3", "to":"3.1", "type":"line", "forwardArrow":"filled" },
+        { "from":"3.1", "to":"3.2", "type":"line", "forwardArrow":"filled" }
+    ];
+
+    // creating an organization chart
+    var myDiagram = new dhx.Diagram("diagram_container");
+
+    // loading data into the diagram
+    myDiagram.data.parse(data);
+
+    function myFunction() {
+        myDiagram.paint();
+        //document.getElementById("demo").innerHTML = "Hello World";
+    }
+
+</script>

@@ -1,0 +1,48 @@
+
+<!-- <link href="diagram.css" rel="stylesheet"> -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+
+<%= stylesheet_link_tag "diagram.css" %>
+<%= javascript_include_tag "diagram.js" %>
+
+<%#= javascript_pack_tag 'diagram.js' %>
+
+
+
+<div id="diagram_container"></div>
+
+<button onclick="myFunction()">Redraw Orgchart</button>
+
+<script>
+    // data to load
+    var data = [
+        { "id": "<%= @id1 %>", "text": "Chairman & CEO" },
+        { "id": "2", "text": "Manager", "parent": "1" },
+        { "id": "3", "text": "Technical Director", "parent": "1" },
+        { "id": "2.1", "text": "Marketer", "parent": "2" },
+        { "id": "3.1", "text": "Team Lead", "parent": "3" },
+        { "id": "2.2", "text": "Assistant Manager", "parent": "2" },
+        { "id": "3.2", "text": "Technician", "parent": "3.1" },
+        { "id": "2.3", "text": "Promoter", "parent": "2.1" },
+        { "id": "3.3", "text": "Team Member ", "parent": "3" }
+    ];
+
+    // creating an organization chart
+    var myDiagram = new dhx.Diagram("diagram_container", {type:"org", select:true});
+
+    // loading data into the diagram
+    myDiagram.data.parse(data);
+
+    function myFunction() {
+        data = [
+            { "id": "1", "text": "Chairman & CEO" },
+            { "id": "2", "text": "Manager", "parent": "1" },
+            { "id": "3", "text": "Technical Director", "parent": "1" },
+            { "id": "2.1", "text": "Marketer", "parent": "2" },
+            { "id": "3.1", "text": "Team Lead", "parent": "3" }
+        ];
+        myDiagram.data.parse(data);
+        myDiagram.paint();
+        //document.getElementById("demo").innerHTML = "Hello World";
+    }
+</script>

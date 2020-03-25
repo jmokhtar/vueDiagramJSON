@@ -1,0 +1,85 @@
+
+<!-- <link href="diagram.css" rel="stylesheet"> -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+
+<%= javascript_pack_tag "diagram_index.js" %>
+<%#= javascript_pack_tag "application.js" %>
+<%= stylesheet_link_tag "diagram.css" %>
+<%= stylesheet_link_tag "diagramWithEditor.css" %>
+<%= javascript_include_tag "diagram.js" %>
+<%= javascript_include_tag "diagramWithEditor.js" %>
+
+
+<%#= javascript_pack_tag 'diagram.js' %>
+
+<!--
+//= link_directory ../stylesheets/diagram/diagram.css
+//= link_directory ../stylesheets/diagram/diagramWithEditor.css
+-->
+
+<div id="diagram_container"></div>
+
+<button onclick="myFunction()">Redraw Orgchart</button>
+<button data-save-json="i" id="ajax_button">Ajax Orgchart</button>
+
+<script>
+    // import Rails from '@rails/ujs';
+
+    // data to load
+    var data = [
+        { "id": "<%= @id1 %>", "text": "Chairman & CEO" },
+        { "id": "2", "text": "Manager", "parent": "1" },
+        { "id": "3", "text": "Technical Director", "parent": "1" },
+        { "id": "2.1", "text": "Marketer", "parent": "2" },
+        { "id": "3.1", "text": "Team Lead", "parent": "3" },
+        { "id": "2.2", "text": "Assistant Manager", "parent": "2" },
+        { "id": "3.2", "text": "Technician", "parent": "3.1" },
+        { "id": "2.3", "text": "Promoter", "parent": "2.1" },
+        { "id": "3.3", "text": "Team Member ", "parent": "3" },
+        { parent: "2", id: "2.4", text: "Manager", type: "database" },
+        { text: "Technical Director", id: "3.4", type: "process", parent: "1" },
+        { id: "2.5", text: "Peon", type: "database", parent: "2.2" }
+    ];
+
+    // creating an organization chart
+    var myDiagram = new dhx.DiagramEditor("diagram_container", {
+      type:"org",
+      defaultShapeType: "img-card"
+    });
+
+    // loading data into the diagram
+    myDiagram.parse(data);
+
+    function myFunction() {
+        data = [
+            { "id": "1", "text": "Chairman & CEO" },
+            { "id": "2", "text": "Manager", "parent": "1" },
+            { "id": "3", "text": "Technical Director", "parent": "1" },
+            { "id": "2.1", "text": "Marketer", "parent": "2" },
+            { "id": "3.1", "text": "Team Lead", "parent": "3" }
+        ];
+        myDiagram.parse(data);
+        myDiagram.paint();
+        //document.getElementById("demo").innerHTML = "Hello World";
+    }
+
+
+//document.getElementById("ajax_button").addEventListener("click", thisFunction);
+
+//    function thisFunction() {
+//      data = [
+//          { "id": "1", "text": "Chairman & CEO" },
+//          { "id": "2", "text": "Manager", "parent": "1" },
+//          { "id": "3", "text": "Technical Director", "parent": "1" },
+//          { "id": "2.1", "text": "Marketer", "parent": "2" },
+//          { "id": "3.1", "text": "Team Lead", "parent": "3" }
+//      ];
+//      Rails.ajax({
+//        url: "diagram/save",
+//        type: "post",
+//        data: data
+    //     success: function(data) {},
+    //     error: function(data) {}
+//      })
+//    }
+</script>
